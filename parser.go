@@ -326,12 +326,18 @@ func Parser(lexicalList LexicalItems) {
 		case 13:
 			switch currentStep.Name {
 			case "State":
+				fmt.Println("COMPLETEING STATE!!")
+				// Completing State Section
 				currentStep.completed = true
 				tokenList.State = currentStep
 			case "Do":
+				// Completing Do Section
+				fmt.Println("COMPLETEING DO!!")
 				currentStep.completed = true
 				tokenList.Do = currentStep
 			case "View":
+				// Completing View Section
+				fmt.Println("COMPLETEING VIEW!!")
 				currentStep.completed = true
 				tokenList.View = currentStep
 			}
@@ -350,12 +356,13 @@ func Parser(lexicalList LexicalItems) {
 	// fmt.Println("STATE BODY 0 ARGUMENTS 0: ", tokenList.State.Body[1].Arguments[0])
 	// fmt.Println("STATE BODY 0 ARGUMENTS 1: ", tokenList.State.Body[1].Arguments[1])
 	// fmt.Println("----------------------------------------")
-	// fmt.Println("DO: ", tokenList.Do)
-	// fmt.Println("DO BODY: ", tokenList.Do.Body)
-	// fmt.Println("DO BODY 0: ", tokenList.Do.Body[0])
-	// fmt.Println("DO BODY 0 ARGUMENTS: ", tokenList.Do.Body[0].Arguments[0])
-	// fmt.Println("DO BODY 0 ARGUMENTS 0: ", tokenList.Do.Body[0].Arguments[1])
-	// fmt.Println("DO BODY 0 ARGUMENTS 1: ", tokenList.Do.Body[0].Arguments[2])
+	fmt.Println("DO: ", tokenList.Do)
+	fmt.Println("DO BODY: ", tokenList.Do.DoBody)
+	fmt.Println("DO BODY 0: ", tokenList.Do.DoBody[0])
+	fmt.Println("DO BODY 0 ARGUMENTS: ", tokenList.Do.DoBody[0].Arguments[0])
+	fmt.Println("DO BODY 0 Parameters: ", tokenList.Do.DoBody[0].ParameterCount)
+	fmt.Println("DO BODY 0 ARGUMENTS 0: ", tokenList.Do.DoBody[0].Arguments[1])
+	fmt.Println("DO BODY 0 ARGUMENTS 1: ", tokenList.Do.DoBody[0].Arguments[2])
 	// fmt.Println("----------------------------------------")
 	// fmt.Println("VIEW: ", tokenList.View)
 	// fmt.Println("VIEW BODY: ", tokenList.View.Body)
@@ -423,27 +430,27 @@ func handleDoBlock(value Lexical, currentStep RootToken, pushAsArgument, pushAsP
 		argumentLength := len(currentStep.DoBody[currentBodyCount].Arguments)
 		parametersLength := len(currentStep.DoBody[currentBodyCount].Parameters)
 		if pushAsParameter {
-
 			if parametersLength < 1 {
 				m := make(map[int]*Params)
 				m[0] = &Params{Name: value.Value}
 				currentStep.DoBody[currentBodyCount].Parameters = m
 				currentStep.DoBody[currentBodyCount].ParameterCount = parametersLength + 1
+				fmt.Println("PUSHING AS PARAMETER: ", value.Value)
 			} else {
-				currentStep.DoBody[len(currentStep.DoBody)] = &Func{Name: value.Value, Type: CallExpression, Kind: "Func"}
-				currentStep.BodyCount = len(currentStep.DoBody)
+				currentStep.DoBody[currentBodyCount].Parameters[parametersLength] = &Params{Name: value.Value}
+				currentStep.DoBody[currentBodyCount].ParameterCount = parametersLength + 1
 			}
 
 		} else if pushAsArgument {
 
 			if argumentLength < 1 {
-				m := make(map[int]*Func)
-				m[0] = &Func{Name: value.Value, Type: CallExpression, Kind: "Func"}
-				currentStep.DoBody = m
-				currentStep.BodyCount = len(currentStep.DoBody)
+				m := make(map[int]*Body)
+				m[0] = &Body{Name: value.Value, Type: CallExpression, Kind: "Func"}
+				currentStep.DoBody[currentBodyCount].Arguments = m
+				currentStep.DoBody[currentBodyCount].ArgumentCount = argumentLength + 1
 			} else {
-				currentStep.DoBody[len(currentStep.DoBody)] = &Func{Name: value.Value, Type: CallExpression, Kind: "Func"}
-				currentStep.BodyCount = len(currentStep.DoBody)
+				currentStep.DoBody[currentBodyCount].Arguments[argumentLength] = &Body{Name: value.Value, Type: VariableDeclaration, Kind: "??"}
+				currentStep.DoBody[currentBodyCount].ArgumentCount = argumentLength + 1
 			}
 
 		}
