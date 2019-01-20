@@ -1,0 +1,144 @@
+
+NEW WAY
+
+	Tokens {
+		State {
+			Type 'RootExpression'
+      BodyCount 1
+			Body {
+        0 {
+          Name 'Eq'
+          Type 'CallExpression'
+          Kind 'func'
+          ArgumentCount 2
+          Arguments [{
+            Name 'clickCount'
+            Type 'VaribleDeclaration'
+            Arguments []
+          }, {
+            Name '0'
+            Type 'Value'
+            Arguments []
+          }]
+        }
+			}
+		}
+		Do {
+			Type 'RootExpression'
+      BodyCount 1
+			Body [{
+				Name 'Func'
+				Type 'CallExpression'
+        Object {
+        	Kind 'func'
+          Name 'Func'
+        }
+        ArgumentCount 1
+				Arguments [{
+					Name 'updateCount'
+					Type 'FunctionDeclaration'
+					Parameters '(message)'
+					Arguments [{
+						Name 'Jetlog'
+						Type 'CallExpression
+						Arguments [{
+							Name 'message'
+							Type 'CallParameter'
+							Arguments []
+						}, {
+							Name 'Var'
+							Type 'CallExpression'
+							Arguments [{
+								Name 'newVar'
+								Type 'VariableDeclaration'
+								Arguements []
+							}]
+						}, {
+							Name 'Eq'
+							Type 'CallExpression'
+							Arguments [{
+								Name 'newVar'
+								Type 'VariableDeclaration'
+								Arguments []
+							}, {
+								Name '0'
+								Type 'Value'
+								Arguments []
+							}]
+						}]
+					}]
+				}]
+			}]
+		}
+	}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+OLD WAY
+
+  Tokens {
+		State {
+			Type 'RootExpression'
+			Body [{
+				Name 'Eq'
+				Type 'CallExpression'
+				Arguments [{
+					Name 'clickCount'
+					Type 'VaribleDeclaration'
+					Arguments []
+				}, {
+					Name '0'
+					Type 'Value'
+					Arguments []
+				}]
+			}]
+		}
+		Do {
+			Type 'RootExpression'
+			Body [{
+				Name 'Func'
+				Type 'CallExpression'
+				Arguments [{
+					Name 'updateCount'
+					Type 'FunctionDeclaration'
+					Parameters '(message)'
+					Arguments [{
+						Name 'Jetlog'
+						Type 'CallExpression
+						Arguments [{
+							Name 'message'
+							Type 'CallParameter'
+							Arguments []
+						}, {
+							Name 'Var'
+							Type 'CallExpression'
+							Arguments [{
+								Name 'newVar'
+								Type 'VariableDeclaration'
+								Arguements []
+							}]
+						}, {
+							Name 'Eq'
+							Type 'CallExpression'
+							Arguments [{
+								Name 'newVar'
+								Type 'VariableDeclaration'
+								Arguments []
+							}, {
+								Name '0'
+								Type 'Value'
+								Arguments []
+							}]
+						}]
+					}]
+				}]
+			}]
+		}
+	}
