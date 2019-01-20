@@ -430,29 +430,9 @@ func handleDoBlock(value Lexical, currentStep RootToken, pushAsArgument, pushAsP
 		argumentLength := len(currentStep.DoBody[currentBodyCount].Arguments)
 		parametersLength := len(currentStep.DoBody[currentBodyCount].Parameters)
 		if pushAsParameter {
-			if parametersLength < 1 {
-				m := make(map[int]*Params)
-				m[0] = &Params{Name: value.Value}
-				currentStep.DoBody[currentBodyCount].Parameters = m
-				currentStep.DoBody[currentBodyCount].ParameterCount = parametersLength + 1
-				fmt.Println("PUSHING AS PARAMETER: ", value.Value)
-			} else {
-				currentStep.DoBody[currentBodyCount].Parameters[parametersLength] = &Params{Name: value.Value}
-				currentStep.DoBody[currentBodyCount].ParameterCount = parametersLength + 1
-			}
-
+			currentStep.DoBody[currentBodyCount] = addParameterToAST(parametersLength, value.Value, currentStep.DoBody[currentBodyCount])
 		} else if pushAsArgument {
-
-			if argumentLength < 1 {
-				m := make(map[int]*Body)
-				m[0] = &Body{Name: value.Value, Type: CallExpression, Kind: "Func"}
-				currentStep.DoBody[currentBodyCount].Arguments = m
-				currentStep.DoBody[currentBodyCount].ArgumentCount = argumentLength + 1
-			} else {
-				currentStep.DoBody[currentBodyCount].Arguments[argumentLength] = &Body{Name: value.Value, Type: VariableDeclaration, Kind: "??"}
-				currentStep.DoBody[currentBodyCount].ArgumentCount = argumentLength + 1
-			}
-
+			currentStep.DoBody[currentBodyCount] = addArgumentToAST(argumentLength, value.Value, currentStep.DoBody[currentBodyCount])
 		}
 	}
 	return currentStep
@@ -466,4 +446,42 @@ func handleDoBlock(value Lexical, currentStep RootToken, pushAsArgument, pushAsP
 func handleViewBlock(value Lexical, currentStep RootToken, pushAsArgument bool) RootToken {
 	fmt.Println("IN VIEW: ", value)
 	return currentStep
+}
+
+/*
+*
+*
+*
+ */
+func addArgumentToAST(argumentLength int, value string, body *Func) *Func {
+	if argumentLength < 1 {
+		m := make(map[int]*Body)
+		m[0] = &Body{Name: value, Type: CallExpression, Kind: "Func"}
+		body.Arguments = m
+		body.ArgumentCount = argumentLength + 1
+	} else {
+		body.Arguments[argumentLength] = &Body{Name: value, Type: VariableDeclaration, Kind: "??"}
+		body.ArgumentCount = argumentLength + 1
+	}
+	return body
+}
+
+/*
+*
+*
+*
+ */
+func addParameterToAST(parametersLength int, value string, body *Func) *Func {
+	if parametersLength < 1 {
+		m := make(map[int]*Params)
+		m[0] = &Params{Name: value}
+		body.Parameters = m
+		body.ParameterCount = parametersLength + 1
+		fmt.Println("PUSHING AS PARAMETER: ", value)
+	} else {
+		body.Parameters[parametersLength] = &Params{Name: value}
+		body.ParameterCount = parametersLength + 1
+	}
+
+	return body
 }
