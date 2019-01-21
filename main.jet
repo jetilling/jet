@@ -7,7 +7,7 @@ State {
 
 Do {
   
-  Func updateCount ( message ) [
+  updateCount ( message ) [
     Jetlog message
 
     Var newVar
@@ -22,7 +22,22 @@ Do {
 
 View {
   Div () [
-    Button ( Eq Click updateCount message ) [ Eq Text 'Click me!' ]
-    Span () [ Eq Text clickCount ]
+    Button ( Click updateCount 'Im a param' ) [ Text 'Click me!' ]
+    Span () [ Text clickCount ]
   ]
 }
+
+Jetlog
+  message
+Var
+  newVar
+Eq  
+  newVar
+  9
+Jetlog
+  newVar
+Add
+  clickCount
+  1
+Update
+  clickCount
