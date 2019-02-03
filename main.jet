@@ -26,18 +26,3 @@ View {
     Span () [ Text clickCount ]
   ]
 }
-
-Jetlog
-  message
-Var
-  newVar
-Eq  
-  newVar
-  9
-Jetlog
-  newVar
-Add
-  clickCount
-  1
-Update
-  clickCount
